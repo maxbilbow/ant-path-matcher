@@ -1,6 +1,6 @@
 {
   "name": "@maxbilbow/ant-path-matcher",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
   "description": "An implementation for Ant-style path patterns",
   "main": "./dist/cjs/main.cjs",
