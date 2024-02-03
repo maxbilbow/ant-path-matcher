@@ -16,7 +16,7 @@
   },
   "files": [
     "dist",
-    "!dist/test",
+    "!dist/esm/test",
     "src",
     "!src/test"
   ],
