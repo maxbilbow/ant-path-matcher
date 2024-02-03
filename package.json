@@ -29,7 +29,7 @@
     "prepublishOnly": "npm run build",
     "prebuild": "rimraf dist",
     "build": "tsc --build src/tsconfig.json && npm run build-cjs",
-    "build-cjs": "esbuild --bundle --platform=node --target=node14 --outdir=dist/cjs src/lib/main.ts --sourcemap --minify --format=cjs --sourcemap --out-extension:.js=.cjs"
+    "postbuild": "esbuild dist/esm/lib/main.js --bundle --platform=node --target=node16 --outdir=dist/cjs --format=cjs --sourcemap --out-extension:.js=.cjs"
   },
   "keywords": [
     "ant",
