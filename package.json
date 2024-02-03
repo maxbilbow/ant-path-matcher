@@ -1,22 +1,64 @@
 {
-  "name": "ant-path-matcher",
-  "version": "0.0.1",
+  "name": "@maxbilbow/ant-path-matcher",
+  "version": "0.0.0-rc.4",
+  "type": "module",
   "description": "An implementation for Ant-style path patterns",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "main": "./dist/cjs/main.cjs",
+  "module": "./dist/esm/main.js",
+  "types": "./dist/types/main.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/main.d.ts",
+      "import": "./dist/esm/main.js",
+      "require": "./dist/cjs/main.cjs"
+    },
+    "./package.json": "./package.json"
   },
-  "keywords": ["ant","path","matcher"],
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "preversion": "npm run lint && npm test && npm run build",
+    "lint": "eslint \"**/*.{ts,js,cjs}\"",
+    "test": "node --experimental-vm-modules ./node_modules/.bin/jest",
+    "prepare": "husky",
+    "prepublishOnly": "npm run build",
+    "build": "tsc --build src/tsconfig.json && npm run build-esm && npm run build-cjs",
+    "build-esm": "esbuild --bundle --platform=node --target=node14 --outdir=dist/esm src/lib/main.ts --sourcemap --minify",
+    "build-cjs": "esbuild --bundle --platform=node --target=node14 --outdir=dist/cjs src/lib/main.ts --sourcemap --minify --format=cjs --sourcemap --out-extension:.js=.cjs"
+  },
+  "keywords": [
+    "ant",
+    "path",
+    "matcher"
+  ],
   "author": "it@cimc-raffles.com",
   "license": "MIT",
-  "homepage": "https://github.com/cimc-raffles/ant-path-matcher.git",
+  "homepage": "https://github.com/maxbilbow/ant-path-matcher.git",
   "repository": {
     "type": "git",
-    "url": "https://github.com/cimc-raffles/ant-path-matcher.git"
+    "url": "https://github.com/maxbilbow/ant-path-matcher.git"
   },
-  "dependencies": {
-    "string-builder": "^0.1.6",
-    "xregexp": "^4.2.4",
-    "xregexp-quotemeta": "^1.0.4"
+  "devDependencies": {
+    "@tsconfig/node-lts": "^20.1.1",
+    "@types/jest": "^29.5.12",
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "@typescript-eslint/parser": "^6.20.0",
+    "esbuild": "^0.20.0",
+    "eslint": "^8.56.0",
+    "husky": "^9.0.10",
+    "jest": "^29.7.0",
+    "lint-staged": "^15.2.1",
+    "prettier": "^3.2.4",
+    "ts-jest": "^29.1.2",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3",
+    "xregexp": "^5.1.1"
+  },
+  "lint-staged": {
+    "*.{ts,js,cjs,json,md}": [
+      "prettier --write"
+    ]
   }
 }
